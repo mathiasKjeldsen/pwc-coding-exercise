@@ -1,5 +1,6 @@
-import React, { useState, useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import "./styles.css";
+import DisplayPersons from "./DisplayPersons";
 
 const data = [
   {
@@ -81,6 +82,25 @@ const reducer = (state, action) => {
 export default function App() {
   const [state, dispatch] = useReducer(reducer, { count: 0 });
 
+  useEffect(() => {
+    data.forEach((person, i) => {
+      if (person.hobbies) {
+        person.hobbies.forEach((hobby, hobbyIndex) => {
+          data[i].hobbies[hobbyIndex] = camelCase(hobby);
+        });
+      }
+    });
+  }, []);
+
+  function camelCase(str) {
+    return str
+      .split(" ")
+      .map((s, index) =>
+        index !== 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s.toLowerCase()
+      )
+      .join("");
+  }
+
   return (
     <div className="App">
       <h1>Hello CodeSandbox</h1>
@@ -91,6 +111,7 @@ export default function App() {
       <button onClick={() => dispatch({ type: "decrement" })}>
         Decrement{" "}
       </button>
+      <DisplayPersons persons={data} />
     </div>
   );
 }
