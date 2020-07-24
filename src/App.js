@@ -74,13 +74,41 @@ const reducer = (state, action) => {
       return { count: state.count + 1 };
     case "decrement":
       return { count: state.count - 1 };
+    case "unequal":
+      return { count: state.count + (state.count % 2 ? 2 : 1) };
+    case "prime":
+      return { count: prime(state.count - 1) };
+    case "fibonacci":
+      return { count: state.count + 1, fibCount: fibonacci(state.count) };
     default:
       throw new Error("No valid selection was used");
   }
 };
 
+// Fibonacci sequence recursion
+function fibonacci(n) {
+  if (n === 0) {
+    return 0;
+  }
+  if (n === 1) {
+    return 1;
+  } else {
+    return fibonacci(n - 1) + fibonacci(n - 2);
+  }
+}
+
+// prime number recursion
+function prime(n) {
+  if (n <= 0) return 0;
+  let p = true;
+  for (let i = 2; i < n; i++) if (n % i === 0) p = false;
+  if (p) return n;
+  else return prime(n - 1);
+}
+
+const initialState = { fibCount: 0, count: 0 };
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, { count: 0 });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     data.forEach((person, i) => {
@@ -104,13 +132,21 @@ export default function App() {
   return (
     <div className="App">
       <h1>Hello CodeSandbox</h1>
-      <p>count {state.count} </p>
+      <p>
+        count {state.count}, fibCount {state.fibCount}
+      </p>
       <button onClick={() => dispatch({ type: "increment" })}>
         Increment{" "}
       </button>
       <button onClick={() => dispatch({ type: "decrement" })}>
         Decrement{" "}
       </button>
+      <button onClick={() => dispatch({ type: "unequal" })}>Unequal </button>
+      <button onClick={() => dispatch({ type: "prime" })}>Prime </button>
+      <button onClick={() => dispatch({ type: "fibonacci" })}>
+        Fibonacci{" "}
+      </button>
+
       <DisplayPersons persons={data} />
     </div>
   );
