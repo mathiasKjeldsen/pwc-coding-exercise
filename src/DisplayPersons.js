@@ -1,8 +1,45 @@
 import React from "react";
 
 export default class DisplayPersons extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { persons: [] };
+  }
+
+  componentDidMount = () => {
+    this.filterPersons(this.props.persons);
+  };
+
+  filterPersons = persons => {
+    let _hobbies = [];
+    // Save all hobbies in an array
+    persons.forEach(person => {
+      if (person.hobbies) {
+        person.hobbies.forEach(h => _hobbies.push(h));
+      }
+    });
+    function getHobbLen(array, value) {
+      return array.filter(v => v === value).length;
+    }
+    // find hobbies that occur more than one
+    const multipleOccurences = _hobbies.filter(hob => {
+      return getHobbLen(_hobbies, hob) > 1;
+    });
+    // filter the persons array to only show persons with unique hobbies
+    let _persons = persons.filter(p => {
+      if (p.hobbies === undefined) return false;
+      let isUnique = true;
+      p.hobbies.forEach(val => {
+        if (multipleOccurences.includes(val)) isUnique = false;
+      });
+      return isUnique;
+    });
+    // setState to display
+    this.setState({ persons: _persons });
+  };
+
   render() {
-    const { persons } = this.props;
+    const { persons } = this.state;
     return (
       <div>
         {persons.map((person, key) => (
