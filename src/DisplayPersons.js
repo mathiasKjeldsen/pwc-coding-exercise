@@ -21,16 +21,16 @@ export default class DisplayPersons extends React.Component {
     function getHobbLen(array, value) {
       return array.filter(v => v === value).length;
     }
-    // find hobbies that occur more than one
-    const multipleOccurences = _hobbies.filter(hob => {
-      return getHobbLen(_hobbies, hob) > 1;
+    // find hobbies that occur more than once
+    const multipleOccurences = _hobbies.filter(hobby => {
+      return getHobbLen(_hobbies, hobby) > 1;
     });
     // filter the persons array to only show persons with unique hobbies
-    let _persons = persons.filter(p => {
+    const _persons = persons.filter(p => {
       if (p.hobbies === undefined) return false;
       let isUnique = true;
       p.hobbies.forEach(val => {
-        if (multipleOccurences.includes(val)) isUnique = false;
+        if (multipleOccurences.includes(val.toLowerCase())) isUnique = false;
       });
       return isUnique;
     });

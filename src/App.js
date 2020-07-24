@@ -86,25 +86,23 @@ const reducer = (state, action) => {
 };
 
 // Fibonacci sequence recursion
-function fibonacci(n) {
-  if (n === 0) {
-    return 0;
-  }
-  if (n === 1) {
-    return 1;
-  } else {
-    return fibonacci(n - 1) + fibonacci(n - 2);
-  }
-}
+const fibonacci = n => {
+  if (n === 0) return 0;
+  if (n === 1) return 1;
+  else return fibonacci(n - 1) + fibonacci(n - 2);
+};
 
 // prime number recursion
-function prime(n) {
+const prime = n => {
   if (n <= 0) return 0;
   let p = true;
-  for (let i = 2; i < n; i++) if (n % i === 0) p = false;
+  for (let i = 2; i < n; i++)
+    if (n % i === 0) {
+      p = false;
+    }
   if (p) return n;
   else return prime(n - 1);
-}
+};
 
 const initialState = { fibCount: 0, count: 0 };
 export default function App() {
@@ -132,9 +130,8 @@ export default function App() {
   return (
     <div className="App">
       <h1>Hello CodeSandbox</h1>
-      <p>
-        count {state.count}, fibCount {state.fibCount}
-      </p>
+      <p>count {state.count}</p>
+      {state.fibCount !== undefined ? <p>Fibonacci {state.fibCount}</p> : null}
       <button onClick={() => dispatch({ type: "increment" })}>
         Increment{" "}
       </button>
