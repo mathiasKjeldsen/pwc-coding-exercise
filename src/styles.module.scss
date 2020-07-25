@@ -1,0 +1,62 @@
+body {
+  background: rgba(0, 0, 0, 0.849);
+}
+
+.App {
+  font-family: sans-serif;
+  padding: 20px;
+  text-align: center;
+  max-width: 500px;
+  margin: auto;
+}
+
+h1,
+p {
+  color: white;
+  margin: 0;
+}
+
+.countIconBtn {
+  font-size: 3em;
+}
+
+.count {
+  font-size: 1.5em;
+}
+
+.gridSpacing {
+  padding: 50px 0;
+}
+
+.btn {
+  text-transform: none !important;
+}
+
+.flexDirection {
+  flex-direction: column
+}
+
+.person {
+  display: inline-block;
+  padding: 10px;
+}
+
+.personalInfo {
+  margin-bottom: 10px;
+}
+
+.personIcon {
+  font-size: 3rem;
+  color: white;
+}
+
+.hobbies {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  background: white;
+  border: 1px solid black;
+  display: inline;
+  color: black;
+  border-radius: 3px;
+  margin: 2px;
+}
